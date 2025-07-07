@@ -1,23 +1,27 @@
 <idea-plugin>
   <id>com.curlgenie</id>
   <name>cURLGenie</name>
-  <vendor>Your Name</vendor>
   <version>1.0.0</version>
+  <vendor email="kaushalkantsingh@gmail.com" url="https://github.com/kksrajput/curlgenie-idea-plugin">Kaushal Kant Singh</vendor>
 
   <description>
-    Generate cURL commands from Spring Boot controller methods.
+    Generate cURL commands from Spring Boot controller methods and DTOs.
+    Supports nested DTOs, query/path/header params, and JSON/XML generation.
+
+    Licensed under the MIT License.
   </description>
 
-  <depends>com.intellij.modules.platform</depends>
+  <change-notes>
+    Initial release: Spring Boot to cURL conversion tool.
+  </change-notes>
 
-  <extensions defaultExtensionNs="com.intellij">
-  </extensions>
+  <depends>com.intellij.modules.platform</depends>
 
   <actions>
     <action id="GenerateCurlAction"
             class="com.curlgenie.GenerateCurlAction"
             text="Generate cURL from Spring Method"
-            description="Paste Spring Boot method and generate cURL">
+            description="Paste Spring Boot method and optional class definitions to generate cURL">
       <add-to-group group-id="ToolsMenu" anchor="last"/>
     </action>
   </actions>

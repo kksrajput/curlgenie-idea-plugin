@@ -1,38 +1,169 @@
-# 🚀 cURLGenie IntelliJ Plugin
+# cURLGenie 🧞‍♂️
 
-**cURLGenie** is an IntelliJ IDEA plugin that converts Spring Boot controller methods into `cURL` commands for quick API testing, mocking, and documentation generation. Just paste your method and (optionally) class definitions—get a ready-to-use `cURL` request instantly.
+**cURLGenie** is an IntelliJ IDEA plugin that generates `cURL` commands from your **Spring Boot controller methods**.
 
----
-
-## 🔧 Features
-
-- ✅ Supports Spring annotations: `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping`, `@RequestMapping`
-- 🔍 Parses method signatures and optional class definitions
-- 🌐 Supports:
-  - `@RequestParam` → Query parameters
-  - `@PathVariable` → Path substitution
-  - `@RequestHeader` → Headers
-  - `@RequestBody` / `@ModelAttribute` → JSON/XML or query-encoded body
-- 🧠 Understands:
-  - Inheritance
-  - Interfaces (via getters)
-  - DTO nesting
-  - XML support via `consumes = "application/xml"`
-  - Maps and dynamic types (`Map<String,Object>`)
-  - Enums, `Optional<>`, arrays, lists, and more
+Paste a controller method (and optional class definitions), and instantly get a ready-to-run `cURL` command — with support for:
+- `@RequestParam`, `@PathVariable`, `@RequestBody`, `@ModelAttribute`, `@RequestHeader`
+- JSON / XML body generation
+- DTOs, nested classes, interfaces, inheritance
+- Map bodies (`Map<String, Object>`)
+- Validation annotations
+- Header and query param inference
 
 ---
 
-## 🚀 Installation
+## ✨ Features
 
-### Option 1: Install from IntelliJ Marketplace
+- 🔍 Detects Spring REST annotations like `@GetMapping`, `@PostMapping`, `@RequestMapping`
+- 🧠 Parses DTOs to generate body content (JSON or XML)
+- 🧾 Supports nested classes, inheritance, interfaces
+- 💡 Smart handling of headers, query/path/body params
+- 🧪 JUnit-tested for common and edge cases
+
+---
+
+## 📦 Installation
 
 1. Open IntelliJ IDEA
-2. Go to `Settings → Plugins → Marketplace`
-3. Search for **"cURLGenie"**
-4. Click `Install`, then restart IDE
+2. Go to `Settings > Plugins`
+3. Click `Marketplace` and search for `cURLGenie`
+4. Install the plugin
+5. Restart IntelliJ
 
-### Option 2: Install Locally (Development Build)
+---
 
-```bash
-./gradlew buildPlugin
+## 🚀 How to Use
+
+1. Open any Java class file with Spring controller methods.
+2. Select `Tools > Generate cURL from Spring Method` from the main menu.
+3. Paste your Spring controller method when prompted.
+4. (Optional) Paste related class definitions (DTOs) when prompted.
+5. Click OK — your `cURL` command is generated instantly!
+
+---
+
+## 🧪 Example Scenarios
+
+### ✅ Simple GET Request
+
+```java
+@GetMapping("/hello")
+public String sayHello(@RequestParam String name) {}
+➡️ Generates:
+
+
+curl -X GET \
+"http://localhost:8080/hello?name=val"
+✅ POST with Nested JSON
+java
+
+@PostMapping("/users")
+public void create(@RequestBody User u) {}
+java
+
+public class User {
+  private String name;
+  private int age;
+  private Address address;
+}
+public class Address {
+  private String city;
+}
+➡️ Generates:
+
+
+curl -X POST \
+"http://localhost:8080/users" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"example","age":1,"address":{"city":"example"}}'
+✅ PUT with ModelAttribute
+java
+
+@PutMapping("/update")
+public void update(@ModelAttribute Req r) {}
+java
+
+public class Req {
+  private String id;
+  private String val;
+}
+➡️ Generates:
+
+
+curl -X PUT \
+"http://localhost:8080/update?id=val&val=val"
+✅ Header Detection
+java
+
+@GetMapping("/auth")
+public void a(@RequestHeader("Authorization") String tok) {}
+➡️ Generates:
+
+
+curl -X GET \
+"http://localhost:8080/auth" \
+  -H "Authorization: val"
+✅ Map Body
+java
+
+@PostMapping("/dynamic")
+public void d(@RequestBody Map<String,Object> m) {}
+➡️ Generates:
+
+
+curl -X POST \
+"http://localhost:8080/dynamic" \
+  -H "Content-Type: application/json" \
+  -d '{"key":"value"}'
+✅ XML Body
+java
+
+@PostMapping(value="/xml", consumes="application/xml")
+public void x(@RequestBody X u) {}
+java
+
+public class X {
+  private String name;
+}
+➡️ Generates:
+
+
+curl -X POST \
+"http://localhost:8080/xml" \
+  -H "Content-Type: application/xml" \
+  -d '<X><name>example</name></X>'
+✅ Inheritance Support
+java
+
+@PostMapping("/create")
+public void create(@RequestBody ExtendedUser user) {}
+java
+
+public class BaseUser {
+  private String email;
+}
+public class ExtendedUser extends BaseUser {
+  private String username;
+}
+➡️ Generates:
+
+curl -X POST \
+"http://localhost:8080/create" \
+  -H "Content-Type: application/json" \
+  -d '{"email":"example","username":"example"}'
+🧾 License
+MIT License. See LICENSE for details.
+
+🤝 Contributing
+Feel free to fork this repo, submit issues, or create pull requests.
+
+GitHub: https://github.com/kksrajput/curlgenie-idea-plugin
+
+🙋 FAQ
+Q: What Spring annotations are supported?
+A: @GetMapping, @PostMapping, @PutMapping, @DeleteMapping, @RequestMapping, @RequestParam, @PathVariable, @RequestBody, @ModelAttribute, @RequestHeader.
+
+Q: Can I use this for complex DTOs?
+A: Yes! It supports inheritance, interfaces, and nested classes.
+
+Enjoy lightning-fast cURL generation in IntelliJ with cURLGenie ⚡️
