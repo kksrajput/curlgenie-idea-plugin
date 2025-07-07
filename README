@@ -1,0 +1,38 @@
+# 🚀 cURLGenie IntelliJ Plugin
+
+**cURLGenie** is an IntelliJ IDEA plugin that converts Spring Boot controller methods into `cURL` commands for quick API testing, mocking, and documentation generation. Just paste your method and (optionally) class definitions—get a ready-to-use `cURL` request instantly.
+
+---
+
+## 🔧 Features
+
+- ✅ Supports Spring annotations: `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping`, `@RequestMapping`
+- 🔍 Parses method signatures and optional class definitions
+- 🌐 Supports:
+  - `@RequestParam` → Query parameters
+  - `@PathVariable` → Path substitution
+  - `@RequestHeader` → Headers
+  - `@RequestBody` / `@ModelAttribute` → JSON/XML or query-encoded body
+- 🧠 Understands:
+  - Inheritance
+  - Interfaces (via getters)
+  - DTO nesting
+  - XML support via `consumes = "application/xml"`
+  - Maps and dynamic types (`Map<String,Object>`)
+  - Enums, `Optional<>`, arrays, lists, and more
+
+---
+
+## 🚀 Installation
+
+### Option 1: Install from IntelliJ Marketplace
+
+1. Open IntelliJ IDEA
+2. Go to `Settings → Plugins → Marketplace`
+3. Search for **"cURLGenie"**
+4. Click `Install`, then restart IDE
+
+### Option 2: Install Locally (Development Build)
+
+```bash
+./gradlew buildPlugin

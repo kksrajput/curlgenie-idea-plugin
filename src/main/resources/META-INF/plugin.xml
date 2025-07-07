@@ -1,0 +1,24 @@
+<idea-plugin>
+  <id>com.curlgenie</id>
+  <name>cURLGenie</name>
+  <vendor>Your Name</vendor>
+  <version>1.0.0</version>
+
+  <description>
+    Generate cURL commands from Spring Boot controller methods.
+  </description>
+
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+  </extensions>
+
+  <actions>
+    <action id="GenerateCurlAction"
+            class="com.curlgenie.GenerateCurlAction"
+            text="Generate cURL from Spring Method"
+            description="Paste Spring Boot method and generate cURL">
+      <add-to-group group-id="ToolsMenu" anchor="last"/>
+    </action>
+  </actions>
+</idea-plugin>
