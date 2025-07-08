@@ -15,6 +15,8 @@
     Initial release: Spring Boot to cURL conversion tool.
   </change-notes>
 
+  <idea-version since-build="231.0" until-build="243.*"/>
+
   <depends>com.intellij.modules.platform</depends>
 
   <actions>
