@@ -3,8 +3,8 @@ plugins {
     id("org.jetbrains.intellij") version "1.17.3"
 }
 
-group = "com.yourdomain.curlgenie"
-version = "1.0.0"
+group = "com.curlgenie"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
